@@ -4,6 +4,7 @@ var lastValue = null,
     lastId = -1,
     mistakes = 0,
     qttCardsVisible = 0,
+    qtdTurns = 0,
     tmrStart = null,
  content = [
     { id: 1, value: 1 }, { id: 2, value: 2 }, { id: 3, value: 3 }, { id: 4, value: 4 }, { id: 5, value: 5 }, { id: 6, value: 6 },
@@ -18,7 +19,10 @@ function init() {
 
     document.querySelectorAll('.card').forEach(function(el, idx, arr) {        
 
-        el.addEventListener('click', function(event) {            
+        el.addEventListener('click', function(event) {   
+            
+            if (qtdTurns === 0) return;
+
             if (el.firstChild.style.visibility === 'visible') return;
 
             if (lastValue !== el.firstChild.textContent) {
@@ -42,7 +46,18 @@ function init() {
 
                 if (qttCardsVisible === content.length) {
                     document.getElementById('btn-start').style.visibility = 'visible';
-                    document.querySelector('.result').textContent = 'Finished in ' + Math.floor((new Date() - tmrStart)/1000) + ' Seconds with ' + mistakes + ' mistakes.';
+
+                    document.querySelectorAll('.right-panel ol').forEach(function(el) {
+
+                        if (qtdTurns > 5) {
+                            qtdTurns = 0;
+                            el.innerHTML = '';
+                        }
+
+                        el.insertAdjacentHTML('beforeend', '<li>' + (Math.floor((new Date() - tmrStart)/1000) -5) + ' sec. | ' + mistakes + ' mistakes</li>');
+                    });
+
+                    document.querySelector('.result').textContent = 'Finished in ' + (Math.floor((new Date() - tmrStart)/1000) -5) + ' Seconds with ' + mistakes + ' mistakes.';
                     mistakes = 0;
                 }
 
@@ -52,11 +67,12 @@ function init() {
         });
         el.firstChild.style.visibility = 'hidden';
     });
-
-
 }
 
 document.getElementById('btn-start').addEventListener('click', function(event) {  
+    tmrStart = new Date();
+    qtdTurns++;
+
     document.querySelector('.result').textContent = '';
     updateCards();
     countDown(4, function () {        
@@ -71,7 +87,7 @@ function updateCards() {
     content.forEach(function (el, idx, arr) {
         getRandomIdxFromArray(randomContent, content);
     });
-    document.querySelectorAll('.card').forEach(function (el, idx, arr) {
+    document.querySelectorAll('.card').forEach(function (el, idx, arr) {        
         if (el.firstChild) {
             el.removeChild(el.firstChild);
         }
@@ -93,8 +109,8 @@ function countDown(i, callback) {
             document.querySelector('.result').textContent = 'Starting in ' + i + ' seconds';
         } else {
             document.querySelector('.result').textContent = '';
-            tmrStart = new Date();
         }
+
         i-- || (clearInterval(int), callback());
     }, 1000);
 }

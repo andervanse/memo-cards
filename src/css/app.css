@@ -19,45 +19,66 @@ main {
     position: relative;
     height: 80%;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 button {
     margin-top: 35px;
-    width: 120px;
-    height: 40px;
+    width: 140px;
+    height: 50px;
+    box-shadow: 0px;
+    border: 0;
     border-radius: 4px;
     background-color: rgb(79, 115, 116);
-    font-size: 18px;
+    font-size: 22px;
     color: white;    
 }
 
 button:hover {
-    background-color: whitesmoke;
-    color: rgb(79, 115, 116);
+    background-color: rgb(14, 69, 70);   
+    box-shadow:5px; 
 }
 
-.card-content {
-    font-size: 42px;
-    text-align: center;
+.row {
+    width: 90%;
+    margin: auto;    
+    flex-flow: wrap;
+    /* border: 1px dotted rgb(79, 115, 116); */
 }
 
 .container {
-    margin: auto;
+    margin: auto;  
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 55%;
-    height: 300px;
-    border: 1px dotted rgb(79, 115, 116);
+    display: flex;    
+    flex-flow: wrap;
+    width: 675px;
+    height: 200px;
+    /* border: 1px dotted rgb(79, 115, 116); */
+}
+
+.left-panel {
+    top: 0px;    
+    float: left;
+    width: 180px;
+    height: 80%;
+    /* border: 1px dotted rgb(79, 115, 116); */
+}
+
+.right-panel {
+    top: 0px;    
+    float: right;
+    width: 180px;
+    height: 80%;
+    /* border: 1px dotted rgb(79, 115, 116); */
 }
 
 .card {
-    margin: 10px;
-    border: 1px blue dotted;
-    width : 140px;
-    height: 130px;
-    display: grid;               
+    margin: 5px;
+    border: 1px rgb(79, 115, 116) solid;
+    width : 100px;
+    height: 90px;
+    display: grid;
+    font-size: 30px;
 }
 
 .matched {
@@ -73,6 +94,7 @@ button:hover {
 }
 
 footer {
+    margin: auto;
     bottom: 0px;
     text-align: center;
     height: 20px;
