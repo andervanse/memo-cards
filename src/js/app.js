@@ -1,5 +1,3 @@
-
-
 var lastValue = null,
     lastId = -1,
     mistakes = 0,
@@ -87,6 +85,7 @@ function updateCards() {
     content.forEach(function (el, idx, arr) {
         getRandomIdxFromArray(randomContent, content);
     });
+
     document.querySelectorAll('.card').forEach(function (el, idx, arr) {        
         if (el.firstChild) {
             el.removeChild(el.firstChild);
